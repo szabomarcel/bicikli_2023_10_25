@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Okt 25. 10:54
+-- Létrehozás ideje: 2023. Nov 03. 13:24
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.2.4
 
@@ -24,21 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `bicikli`
---
-
-CREATE TABLE `bicikli` (
-  `bicikli_id` int(10) UNSIGNED NOT NULL,
-  `markaneve` varchar(70) NOT NULL,
-  `tipus` varchar(60) NOT NULL,
-  `gyartasiev` date NOT NULL,
-  `megjegyzes` varchar(28) NOT NULL,
-  `nyilvantartasban` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Tábla szerkezet ehhez a táblához `biciklivetel`
 --
 
@@ -48,6 +33,33 @@ CREATE TABLE `biciklivetel` (
   `megvetel` date NOT NULL DEFAULT current_timestamp(),
   `allapot` enum('elindult','lezárult') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `bicikli_1`
+--
+
+CREATE TABLE `bicikli_1` (
+  `bicikli_id` int(10) UNSIGNED NOT NULL,
+  `markaneve` varchar(255) NOT NULL,
+  `tipus` varchar(255) NOT NULL,
+  `gyartasiev` date NOT NULL,
+  `megjegyzes` varchar(255) NOT NULL,
+  `nyilvantartasban` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- A tábla adatainak kiíratása `bicikli_1`
+--
+
+INSERT INTO `bicikli_1` (`bicikli_id`, `markaneve`, `tipus`, `gyartasiev`, `megjegyzes`, `nyilvantartasban`) VALUES
+(2, 'MTB', 'MTB', '2021-10-10', '?jszer?', '2022-12-24'),
+(3, 'fatbike', 'fatbike', '2020-11-10', 'kival?;2021.11.0', '0000-00-00'),
+(4, 'elektromos', 'elektromos', '2017-11-21', 'nagyonj?;2019.01', '0000-00-00'),
+(5, 'kemping', 'kemping', '2018-01-07', 'j?;2021.03.12', '0000-00-00'),
+(6, 'orszaguti', 'orszaguti', '2020-12-24', 'kival?;2021.12.1', '0000-00-00'),
+(7, 'varosi', 'varosi', '1999-01-02', 'nagyonj?;2019.10', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -70,18 +82,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userid`, `igazolvanyszam`, `felhaszanlo_neve`, `emailcim`, `username`, `password`) VALUES
 (1, '123456AB', '', 'asdf@gamil.com', 'Lajos', '1234'),
-(2, '123456AC', 'llllll', 'majom34@gmail.com', 'qwe', '1234');
+(2, '123456AC', 'llllll', 'majom34@gmail.com', 'qwe', '1234'),
+(3, '234567BC', 'szabomarcell', 'szabomarcell34@gmail.com', 'Majom', '1234');
 
 --
 -- Indexek a kiírt táblákhoz
 --
-
---
--- A tábla indexei `bicikli`
---
-ALTER TABLE `bicikli`
-  ADD PRIMARY KEY (`bicikli_id`),
-  ADD UNIQUE KEY `markaneve` (`markaneve`);
 
 --
 -- A tábla indexei `biciklivetel`
@@ -89,6 +95,12 @@ ALTER TABLE `bicikli`
 ALTER TABLE `biciklivetel`
   ADD UNIQUE KEY `bicikli_id` (`bicikli_id`,`userid`),
   ADD KEY `userid` (`userid`);
+
+--
+-- A tábla indexei `bicikli_1`
+--
+ALTER TABLE `bicikli_1`
+  ADD PRIMARY KEY (`bicikli_id`);
 
 --
 -- A tábla indexei `users`
@@ -102,32 +114,27 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT a táblához `bicikli`
+-- AUTO_INCREMENT a táblához `bicikli_1`
 --
-ALTER TABLE `bicikli`
-  MODIFY `bicikli_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `bicikli_1`
+  MODIFY `bicikli_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `userid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Megkötések a kiírt táblákhoz
 --
 
 --
--- Megkötések a táblához `bicikli`
---
-ALTER TABLE `bicikli`
-  ADD CONSTRAINT `bicikli_ibfk_1` FOREIGN KEY (`bicikli_id`) REFERENCES `biciklivetel` (`bicikli_id`);
-
---
 -- Megkötések a táblához `biciklivetel`
 --
 ALTER TABLE `biciklivetel`
-  ADD CONSTRAINT `biciklivetel_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
+  ADD CONSTRAINT `biciklivetel_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`),
+  ADD CONSTRAINT `biciklivetel_ibfk_2` FOREIGN KEY (`bicikli_id`) REFERENCES `bicikli_1` (`bicikli_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
