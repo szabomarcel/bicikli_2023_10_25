@@ -19,6 +19,6 @@ $menu = filter_input(INPUT_GET, "menu");
     ?>
     <script src="./bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js"></script>
     <!-- https://getbootstrap.com/docs/5.3/forms/validation/ -->
-    <!-- <script src="./js/menhely.js"></script> -->
+    <script src="./biciklijs/kerekpar.js"></script>
 </body>
 </html>

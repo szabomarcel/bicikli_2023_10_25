@@ -1,13 +1,13 @@
 <?php
 
 switch ($menu) {
-    case 'orokbefogadasUser':
+    case 'felhasznalo':
         require_once './login/felhasznalo.php';
         break;
     case 'logout':
         require_once './login/logout.php';
         break;
-    case 'orokbefogadasGuest':
+    case 'vendeg':
         require_once './login/vendeg.php';
         break;
     case 'login':

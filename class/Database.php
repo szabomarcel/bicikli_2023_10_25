@@ -52,4 +52,29 @@ class Database {
             $this->error = true;
         }
     }
+    public function osszesBicikli() {
+        $result = $this->db->query("SELECT * FROM `bicikli_1`");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getKivalasztottkerekpar($id) {
+        $result = $this->db->query("SELECT * FROM `bicikli_1` WHERE bicikli_id=" . $id);
+        return $result->fetch_assoc();
+    }
+
+    public function setKivalasztottkerekpar($bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban) {
+        $stmt = $this->db->prepare("UPDATE `bicikli_1` SET `markaneve`= ?,`tipus`= ?,`gyartasiev`= ?,`megjegyzes`= ?,`nyilvantartasban`= ? WHERE bicikli_id= ?");
+        $stmt->bind_param('isssss', $bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban);
+        return $stmt->execute();
+    }
+
+    public function getTipus() {
+        $result = $this->db->query("SELECT DISTINCT `tipus` FROM `bicikli_1`;");
+        return $result->fetch_all();
+    }
+    public function setOrokbefogadas($bicikli_id, $userid) {
+        $stmt = $this->db->prepare("INSERT INTO `biciklivetel` (`bicikli_id`, `userid`) VALUES (?,?)");
+        $stmt ->bind_param("ii", $bicikli_id, $userid);
+        return $stmt->execute();
+    }
 }
