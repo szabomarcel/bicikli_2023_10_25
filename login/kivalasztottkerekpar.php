@@ -8,6 +8,7 @@ if (filter_input(INPUT_POST, "Adatmodositas", FILTER_VALIDATE_BOOL, FILTER_NULL_
     $gyartasiev = filter_input(INPUT_POST, "gyartasiev");
     $megjegyzes = filter_input(INPUT_POST, "megjegyzes");
     $nyilvantartasban = filter_input(INPUT_POST, "nyilvantartasban");
+    $ar = filter_input(INPUT_POST, "ar");
     $from = null;
     $to = null;
     if ($_FILES['kepfajl']['error'] == 0) {

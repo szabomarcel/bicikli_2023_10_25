@@ -62,9 +62,9 @@ class Database {
         return $result->fetch_assoc();
     }
 
-    public function setKivalasztottkerekpar($bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban) {
-        $stmt = $this->db->prepare("UPDATE `bicikli_1` SET `markaneve`= ?,`tipus`= ?,`gyartasiev`= ?,`megjegyzes`= ?,`nyilvantartasban`= ? WHERE bicikli_id= ?");
-        $stmt->bind_param('isssss', $bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban);
+    public function setKivalasztottkerekpar($bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban, $ar) {
+        $stmt = $this->db->prepare("UPDATE `bicikli_1` SET `markaneve`= ?,`tipus`= ?,`gyartasiev`= ?,`megjegyzes`= ?,`nyilvantartasban`= ?, `ar`= ?WHERE bicikli_id= ?");
+        $stmt->bind_param('isssss', $bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban, $ar);
         return $stmt->execute();
     }
 

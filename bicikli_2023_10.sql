@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Nov 03. 13:24
+-- Létrehozás ideje: 2023. Nov 04. 14:55
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.2.4
 
@@ -46,20 +46,21 @@ CREATE TABLE `bicikli_1` (
   `tipus` varchar(255) NOT NULL,
   `gyartasiev` date NOT NULL,
   `megjegyzes` varchar(255) NOT NULL,
-  `nyilvantartasban` date NOT NULL
+  `nyilvantartasban` date NOT NULL,
+  `ar` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- A tábla adatainak kiíratása `bicikli_1`
 --
 
-INSERT INTO `bicikli_1` (`bicikli_id`, `markaneve`, `tipus`, `gyartasiev`, `megjegyzes`, `nyilvantartasban`) VALUES
-(2, 'MTB', 'MTB', '2021-10-10', '?jszer?', '2022-12-24'),
-(3, 'fatbike', 'fatbike', '2020-11-10', 'kival?;2021.11.0', '0000-00-00'),
-(4, 'elektromos', 'elektromos', '2017-11-21', 'nagyonj?;2019.01', '0000-00-00'),
-(5, 'kemping', 'kemping', '2018-01-07', 'j?;2021.03.12', '0000-00-00'),
-(6, 'orszaguti', 'orszaguti', '2020-12-24', 'kival?;2021.12.1', '0000-00-00'),
-(7, 'varosi', 'varosi', '1999-01-02', 'nagyonj?;2019.10', '0000-00-00');
+INSERT INTO `bicikli_1` (`bicikli_id`, `markaneve`, `tipus`, `gyartasiev`, `megjegyzes`, `nyilvantartasban`, `ar`) VALUES
+(2, 'MTB', 'MTB', '2021-10-10', 'ujszeru', '2022-12-24', '150000ft'),
+(3, 'fatbike', 'fatbike', '2020-11-10', 'kivalo', '2021-11-15', '110000ft'),
+(4, 'elektromos', 'elektromos', '2017-11-21', 'nagyonju', '2019-01-09', '400000ft'),
+(5, 'kemping', 'kemping', '2018-01-07', 'jo', '2021-03-12', '50000ft'),
+(6, 'orszaguti', 'orszaguti', '2020-12-24', 'kival', '2021-12-01', '210000ft'),
+(7, 'varosi', 'varosi', '1999-01-02', 'nagyonjo', '2019-10-19', '70000ft');
 
 -- --------------------------------------------------------
 
