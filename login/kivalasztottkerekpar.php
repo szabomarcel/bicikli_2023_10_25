@@ -32,7 +32,28 @@ if (filter_input(INPUT_POST, "Adatmodositas", FILTER_VALIDATE_BOOL, FILTER_NULL_
             echo '<p>A kép feltöltés sikertelen!</p>';
         }
     }
-    if ($db->setKivalasztottkerekpar($bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban)) {
+    if ($db->setKivalasztottkerekpar($bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban, $ar)) {
+        echo '<p>Az adatok módosítása sikeres</p>';
+        header("Location: index.php?menu=home");
+    } else {
+        echo '<p>Az adatok módosítása sikertelen!</p>';
+    }
+} else {
+    $adatok = $db->getKivalasztottkerekpar($id);
+}
+$adatok = $db->getKivalasztottkerekpar($id);
+
+if (filter_input(INPUT_POST, "Egyszarvu", FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE)) {
+    $adatok = $_POST;
+    var_dump($adatok);
+    $bicikli_id = filter_input(INPUT_POST, "bicikli_id", FILTER_SANITIZE_NUMBER_INT);
+    $markaneve = htmlspecialchars(filter_input(INPUT_POST, "markaneve"));
+    $tipus = filter_input(INPUT_POST, "tipusSelect");
+    $gyartasiev = filter_input(INPUT_POST, "gyartasiev");
+    $megjegyzes = filter_input(INPUT_POST, "megjegyzes");
+    $nyilvantartasban = filter_input(INPUT_POST, "nyilvantartasban");
+    $ar = filter_input(INPUT_POST, "ar");
+    if ($db->setKivalasztotttorlottkerekpar($bicikli_id)) {
         echo '<p>Az adatok módosítása sikeres</p>';
         header("Location: index.php?menu=home");
     } else {
@@ -42,6 +63,7 @@ if (filter_input(INPUT_POST, "Adatmodositas", FILTER_VALIDATE_BOOL, FILTER_NULL_
     $adatok = $db->getKivalasztottkerekpar($id);
 }
 ?>
+
 <!--<!-- array (size=8)
   'allatid' => string '7' (length=1)
   'allat_neve' => string 'Gazsi' (length=5)
@@ -90,14 +112,18 @@ if (filter_input(INPUT_POST, "Adatmodositas", FILTER_VALIDATE_BOOL, FILTER_NULL_
         </div>
 
     </div>
-    <div class="row">
-        <div class="mb-3 col-4">
+   <div class="row">
+        <div class="mb-3 col-6">
             <label for="kepfajl" class="form-label">Képfájl</label>
             <input type="file" class="form-control" name="kepfajl" id="kepfajl" value="">
         </div>
-
+       <div class="mb-3 col-6">
+            <label for="ar" class="form-label">Ár</label>
+            <input type="text" class="form-control" name="ar" id="ar" value="">
+        </div>
     </div>
     <button type="submit" class="btn btn-info" value="1" name="Adatmodositas">Módosítás</button>
     <a href="index.php?menu=felhasznalo&bicikli_id=<?php echo $adatok['bicikli_id'];?>" class="btn btn-dark">Megvásárlom</a>
+    <button type="submit" class="btn btn-info" value="1" name="Egyszarvu">Törlés</button>
 </form>
 <?php ?>

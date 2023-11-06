@@ -63,8 +63,8 @@ class Database {
     }
 
     public function setKivalasztottkerekpar($bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban, $ar) {
-        $stmt = $this->db->prepare("UPDATE `bicikli_1` SET `markaneve`= ?,`tipus`= ?,`gyartasiev`= ?,`megjegyzes`= ?,`nyilvantartasban`= ?, `ar`= ?WHERE bicikli_id= ?");
-        $stmt->bind_param('isssss', $bicikli_id, $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban, $ar);
+        $stmt = $this->db->prepare("UPDATE `bicikli_1` SET `markaneve`= ?,`tipus`= ?,`gyartasiev`= ?,`megjegyzes`= ?,`nyilvantartasban`= ?, `ar`= ? WHERE bicikli_id= ?");
+        $stmt->bind_param('ssssssi', $markaneve, $tipus, $gyartasiev, $megjegyzes, $nyilvantartasban, $ar,$bicikli_id);
         return $stmt->execute();
     }
 
@@ -72,9 +72,20 @@ class Database {
         $result = $this->db->query("SELECT DISTINCT `tipus` FROM `bicikli_1`;");
         return $result->fetch_all();
     }
+    
     public function setOrokbefogadas($bicikli_id, $userid) {
         $stmt = $this->db->prepare("INSERT INTO `biciklivetel` (`bicikli_id`, `userid`) VALUES (?,?)");
         $stmt ->bind_param("ii", $bicikli_id, $userid);
         return $stmt->execute();
     }
+    
+    public function setKivalasztotttorlottkerekpar($bicikli_id) {
+        $stmt = $this->db->prepare("DELETE FROM `bicikli_1` WHERE `bicikli_1`.`bicikli_id`= ?;");
+        $stmt->bind_param('i', $bicikli_id);
+        return $stmt->execute();
+    }
+        public function getKivalasztotttorlottkerekpar($id) {
+        $result = $this->db->query("SELECT * FROM `bicikli_1` WHERE bicikli_id=" . $id);
+        return $result->fetch_assoc();
+}  
 }
