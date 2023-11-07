@@ -29,6 +29,7 @@
                 '<p class="card-text">Ár: ' . $row['ar'] . '</p>' .
                 '<a href="index.php?menu=home&id=' . $row['bicikli_id'] . '" class="btn btn-dark">Kiválaszt</a>
                     </div>
+                    <input type="submit" value="Kosárba">
                 </div>
             ';
         echo $card;

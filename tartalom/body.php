@@ -19,6 +19,9 @@ switch ($menu) {
     case 'rolunk':
         require_once './login/rolunk.php';
         break;
+    case 'cart':
+        require_once './login/cart.php';
+        break;        
     case 'home':
         if ($id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT)) {
             require_once './login/kivalasztottkerekpar.php';
